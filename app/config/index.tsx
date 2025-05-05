@@ -7,13 +7,11 @@ import {
 } from '@reown/appkit-siwe'
 import { WagmiAdapter, authConnector } from '@reown/appkit-adapter-wagmi'
 import { getCsrfToken, getSession, signIn, signOut } from 'next-auth/react';
-
-import { cookieStorage, createStorage } from 'wagmi';
 import { arbitrum, mainnet, sepolia, optimism, AppKitNetwork } from '@reown/appkit/networks'
 import { getAddress } from 'viem';
 
 // Get projectId from https://cloud.reown.com
-export const projectId = "55527359745d43a4c3550086894a116a";
+export const projectId = "03f11305883de2bb7a770ddebe9bb097"; // Enter your own project id
 
 if (!projectId) throw new Error('Project ID is not defined');
 
@@ -27,12 +25,14 @@ export const metadata = {
 // Create wagmiConfig
 export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [mainnet, optimism, arbitrum, sepolia];
 
-// 4. Create Wagmi Adapter
+// Create Wagmi Adapter
 export const wagmiAdapter = new WagmiAdapter({
   networks: chains,
   projectId,
   ssr: true
 });
+
+
 
 // Normalize the address (checksum)
 const normalizeAddress = (address: string): string => {
@@ -48,6 +48,12 @@ const normalizeAddress = (address: string): string => {
     return address;
   }
 }
+
+
+
+
+// ========================================================================================
+//  One-click AUth :  streamlining the user authentication process in AppKit by enabling them to seamlessly connect with a wallet and sign a SIWE message with just one click. 
 
 export const siweConfig = createSIWEConfig({
   getMessageParams: async () => ({
@@ -91,6 +97,8 @@ export const siweConfig = createSIWEConfig({
     } catch (error) {
       return false;
     }
+
+    
   },
   signOut: async () => {
     try {
