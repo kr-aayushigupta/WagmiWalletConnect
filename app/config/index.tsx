@@ -63,7 +63,6 @@ export const siweConfig = createSIWEConfig({
     if (!nonce) {
       throw new Error('Failed to get nonce!');
     }
-
     return nonce;
   },
   getSession: async () => {

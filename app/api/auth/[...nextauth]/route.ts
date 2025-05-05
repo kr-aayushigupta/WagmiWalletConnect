@@ -70,7 +70,7 @@ const providers = [
           address: address as `0x${string}`,
           signature: signature as `0x${string}`
         });
-        // end o view verifyMessage      
+           
 
         if (isValid) {
           return {
